@@ -1,0 +1,79 @@
+{{!--  
+Sources:
+    This code was written by referencing various resources:
+    - Exploration - Developing in Node.JS, https://canvas.oregonstate.edu/courses/1901738/pages/exploration-developing-in-node-dot-js?module_item_id=22733737
+    - Activity 2 - Connect webapp to database (Individual), https://canvas.oregonstate.edu/courses/1901738/assignments/9070964?module_item_id=22733669
+    
+    Kestt van Zyl and Seongki Lee Group 154
+ --}}
+
+<!-- index.hbs -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{{> header}}
+
+{{!-- Create a table --}}
+<table id="vehicle-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.vehicle_id}}>
+            <td>{{this.vehicle_id}}</td>
+            <td>{{this.segment}}</td>
+            <td>{{this.brand}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.plate}}</td>
+            <td>{{this.active}}</td>
+            <td><button onclick="deleteVehicle({{this.vehicle_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script src="../js/delete_vehicle.js"></script>
+
+<!-- /views/index.hbs -->
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding a New Vehicle</h2>
+<p>To add a new vehicle, please enter the new vehicle information below and click `Submit`!</p>
+<form id="add-vehicle-form-ajax">
+    <label for="input-vehicle_id">Vehicle ID: </label>
+    <input type="number" name="input-vehicle_id" id="input-vehicle_id">
+    
+    <label for="input-segment">Vehicle Segment: </label>
+    <input type="text" name="input-segment" id="input-segment">
+
+    <label for="input-brand">Vehicle Brand: </label>
+    <input type="text" name="input-brand" id="input-brand">
+
+    <label for="input-name">Vehicle Name: </label>
+    <input type="text" name="input-name" id="input-name">
+
+    <label for="input-plate">Vehicle Plate: </label>
+    <input type="text" name="input-plate" id="input-plate">
+
+    <label for="input-active">Active: </label>
+    <input type="number" name="input-active" id="input-active">
+    
+    <input type="submit">
+</form>
+
+<script src="../js/add_vehicle.js"></script>

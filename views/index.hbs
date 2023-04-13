@@ -1,0 +1,72 @@
+{{!--  
+Sources:
+    This code was written by referencing various resources:
+    - Exploration - Developing in Node.JS, https://canvas.oregonstate.edu/courses/1901738/pages/exploration-developing-in-node-dot-js?module_item_id=22733737
+    - Activity 2 - Connect webapp to database (Individual), https://canvas.oregonstate.edu/courses/1901738/assignments/9070964?module_item_id=22733669
+    
+    Kestt van Zyl and Seongki Lee Group 154
+ --}}
+<!-- index.hbs -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{{> header}}
+
+{{!-- Create a table --}}
+
+<table id="rental-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.rental_id}}>
+            <td>{{this.rental_id}}</td>
+            <td>{{this.branch_id}}</td>
+            <td>{{this.branch_address}}</td>
+            <td>{{this.vehicle_id}}</td>
+            <td>{{this.user_id}}</td>
+            <td>{{this.user_name}}</td>
+            <td>{{this.rental_date}}</td>
+            <td>{{this.return_date}}</td>
+            <td><button onclick="deleteRental({{this.rental_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script src="./js/delete_rental.js"></script>
+
+<h2>Search by User Name</h2>
+<p>Search by user name using the field below.</p>
+<form id="search-person-html" method='GET' action='/'>
+    <label for="input-lname">Search by Name: </label>
+    <input type="text" name="lname" id="input-lname-html-search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+
+
+<!-- /views/index.hbs -->
+
+{{!-- Form to add a record to the table  --}}
+
+
+
+

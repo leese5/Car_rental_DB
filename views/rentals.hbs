@@ -1,0 +1,56 @@
+<!-- index.hbs -->
+
+{{> header}}
+
+{{!-- Create a table --}}
+<table>
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.rental_id}}</td>
+            <td>{{this.branch_id}}</td>
+            <td>{{this.user_id}}</td>
+            
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- /views/index.hbs -->
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding rental Data using an HTML form</h2>
+<p>To add a new person, please enter their information below nad click `Submit`!</p>
+<form id="add-rental-form" method="POST" action="/rentals/add-rental-form">
+    <label for="input-rental_id">Rental ID: </label>
+    <input type="number" name="input-rental_id" id="input-rental_id">
+    
+    <label for="input-branch_id">Branch ID: </label>
+    <input type="number" name="input-branch_id" id="input-branch_id">
+
+    <label for="input-user_id">User ID: </label>
+    <input type="number" name="input-user_id" id="input-user_id">
+
+    
+    
+    <input type="submit">
+</form>

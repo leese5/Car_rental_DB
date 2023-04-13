@@ -1,0 +1,92 @@
+{{!--  
+Sources:
+    This code was written by referencing various resources:
+    - Exploration - Developing in Node.JS, https://canvas.oregonstate.edu/courses/1901738/pages/exploration-developing-in-node-dot-js?module_item_id=22733737
+    - Activity 2 - Connect webapp to database (Individual), https://canvas.oregonstate.edu/courses/1901738/assignments/9070964?module_item_id=22733669
+    
+    Kestt van Zyl and Seongki Lee Group 154
+ --}}
+
+<!-- index.hbs -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{{> header}}
+
+{{!-- Create a table --}}
+<table id="user-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.user_id}}>
+            <td>{{this.user_id}}</td>
+            <td>{{this.user_name}}</td>
+            <td>{{this.rental_date}}</td>
+            <td>{{this.return_date}}</td>
+            <td>{{this.active}}</td>
+            <td><button onclick="deleteUser({{this.user_id}})">Delete</button></td>
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="../js/delete_user.js"></script>
+<!-- /views/index.hbs -->
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding An User</h2>
+<p>To add a new person, please enter their information below and click `Submit`!</p>
+<form id="add-user-form-ajax">
+    <label for="input-user_id">User ID: </label>
+    <input type="number" name="input-user_id" id="input-user_id">
+    
+    <label for="input-user_name">User Name: </label>
+    <input type="text" name="input-user_name" id="input-user_name">
+
+    <label for="input-rental_date">Rental Date: </label>
+    <input type="date" name="input-rental_date" id="input-rental_date">
+
+    <label for="input-return_date">Return Date: </label>
+    <input type="date" name="input-return_date" id="input-return_date">
+    
+    <input type="submit">
+</form>
+
+<script src="../js/add_user.js"></script>
+
+<h2>Updating An User Name</h2>
+<p>To update user name, select user ID from the dropdown menu.</p>
+<form id="update-user-form-ajax">
+
+    <label for="input-user_id">User ID: </label>
+    <select name="input-user_id" id="userIdSelect">
+        <option value="test">Select a User ID</option>
+        {{#each data}}
+        <option value="{{this.user_id}}">{{this.user_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-user_name">User Name: </label>
+    <input type="text" name="input-user_name" id="input-user_name-update">
+    
+    <input type="submit">
+
+</form>
+
+<script src="../js/update_user.js"></script>

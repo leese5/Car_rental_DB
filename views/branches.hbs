@@ -1,0 +1,88 @@
+{{!--  
+Sources:
+    This code was written by referencing various resources:
+    - Exploration - Developing in Node.JS, https://canvas.oregonstate.edu/courses/1901738/pages/exploration-developing-in-node-dot-js?module_item_id=22733737
+    - Activity 2 - Connect webapp to database (Individual), https://canvas.oregonstate.edu/courses/1901738/assignments/9070964?module_item_id=22733669
+    
+    Kestt van Zyl and Seongki Lee Group 154
+ --}}
+
+<!-- index.hbs -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{{> header}}
+
+{{!-- Create a table --}}
+<table id="branch-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.branch_id}}>
+            <td>{{this.branch_id}}</td>
+            <td>{{this.branch_address}}</td>
+            <td>{{this.active}}</td>
+            <td><button onclick="deleteBranch({{this.branch_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script src="../js/delete_branch.js"></script>
+
+<!-- /views/index.hbs -->
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding New Branch</h2>
+<p>To add a new branch, please enter the new branch information below nad click `Submit`!</p>
+<form id="add-branch-form-ajax" >
+    <label for="input-branch_id">Branch ID: </label>
+    <input type="text" name="input-branch_id" id="input-branch_id">
+    
+    <label for="input-branch_address">Branch Address: </label>
+    <input type="text" name="input-branch_address" id="input-branch_address">
+
+    <label for="input-active">Active: </label>
+    <input type="number" name="input-active" id="input-active">
+
+    <input type="submit">
+</form>
+
+<script src="../js/add_branch.js"></script>
+
+<h2>Updating A Branch Address</h2>
+<p>To update a branch address, select branch ID from the dropdown menu.</p>
+<form id="update-branch-form-ajax">
+
+    <label for="input-branch_id">Branch ID: </label>
+    <select name="input-branch_id" id="branchIdSelect">
+        <option value="test">Select a Branch ID</option>
+        {{#each data}}
+        <option value="{{this.branch_id}}">{{this.branch_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-branch_address">Branch Address: </label>
+    <input type="text" name="input-branch_address" id="input-branch_address-update">
+    
+    <input type="submit">
+
+</form>
+
+<script src="../js/update_branch.js"></script>
